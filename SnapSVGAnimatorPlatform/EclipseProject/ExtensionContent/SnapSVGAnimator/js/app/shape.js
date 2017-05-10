@@ -211,6 +211,12 @@ var Shape = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transf
             colStr = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
 
             shape.attr({stroke: colStr, strokeWidth: resourcePath.strokeWidth});
+            
+            if ( resourcePath.strokeLinejoin )
+            	shape.attr({strokeLinejoin: resourcePath.strokeLinejoin});
+            	
+            if ( resourcePath.strokeLinecap )
+            	shape.attr({strokeLinecap: resourcePath.strokeLinecap});
         }
     };
 
