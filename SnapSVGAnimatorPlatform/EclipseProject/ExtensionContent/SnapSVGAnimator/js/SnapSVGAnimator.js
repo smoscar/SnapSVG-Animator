@@ -271,6 +271,8 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
             substr,
             tempTxt,
             boundsWidth = parseFloat(textBounds[2]),
+            boundsHeight = parseFloat(textBounds[3]),
+            h = 0,
             sp,
             bbox,
             i = 0;
@@ -284,16 +286,25 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
             bbox = tempTxt.getBBox();
 
             if (bbox.w > boundsWidth) {
-                newIndex = chars.lastIndexOf(' ');
-                substr = chars.slice(0, newIndex);
-                spans.push(substr);
-                i = i - (chars.length - substr.length) + 2;
-                chars = '';
+                h += bbox.h;
+            	if (h <= boundsHeight) {
+                    newIndex = chars.lastIndexOf(' ');
+                    substr = chars.slice(0, newIndex);
+                    spans.push(substr);
+                    i = i - (chars.length - substr.length) + 2;
+                    chars = '';
+                }
+                else {
+                    i =-1;
+                }
             } else {
                 i += 1;
             }
 
             if (i >= data.txt.length) {
+            	if (typeof(newIndex) == "undefined"){            	
+            		newIndex = chars.length
+            	}
                 substr = chars.slice(0, newIndex);
                 spans.push(substr);
                 i = -1;
