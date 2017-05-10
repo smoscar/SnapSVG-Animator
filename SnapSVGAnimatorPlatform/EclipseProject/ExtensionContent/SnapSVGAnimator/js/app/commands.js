@@ -47,6 +47,7 @@
             if(movieclipTimeline)
             {
 								movieclip = new MovieClip(movieclipTimeline, parentMC, resourceManager, this.m_objectID, this.m_name, this.m_transform);
+								movieclip.charid = this.m_charID;
 								parentMC.insertAtIndex(movieclip, this.m_placeAfter);
                 movieclip.play();
             }
