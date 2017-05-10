@@ -137,7 +137,8 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
             h = 0,
             sp,
             bbox,
-            i = 0;
+            i = 0,
+            returns = 0;
 
         //break into spans
         while (i > -1) {
@@ -148,7 +149,7 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
             bbox = tempTxt.getBBox();
 
             if (bbox.w > boundsWidth) {
-                h += bbox.h;
+            	h += bbox.h;
             	if (h <= boundsHeight) {
                     newIndex = chars.lastIndexOf(' ');
                     substr = chars.slice(0, newIndex);
@@ -159,7 +160,29 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
                 else {
                     i =-1;
                 }
-            } else {
+            } 
+            else if (chars.match(/\n/g)){
+            	
+            	if (bbox.h == 0){
+            		chars = '.';
+					tempTxt = textBox.text(0, 0, chars);
+					tempTxt.attr(textStyles);
+					
+					bbox = tempTxt.getBBox();
+					returns += 1;
+            	}
+            	
+            	h += bbox.h;
+            	if (h <= boundsHeight) {
+                    spans.push(chars);
+                    i += 1;
+                    chars = '';
+                }
+                else {
+                    i =-1;
+                }
+            }
+            else {
                 i += 1;
             }
 
@@ -177,6 +200,9 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
 
         text = textBox.text(0, 0, spans);
         sp = text.selectAll('tspan');
+        for (var i=0; i < returns; i++){
+        	sp[i].attr({"opacity": 0});
+        }
         sp.attr({
             'x': 0,
             'dy': bbox.h + parseFloat(data.paras[0].linespacing)
