@@ -275,6 +275,7 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
             h = 0,
             sp,
             bbox,
+            newIndex,
             i = 0,
             returns = 0;
 
