@@ -44,6 +44,10 @@ function SVGAnim(data, w, h, fps, params) {
     SVGAnim.prototype.toString = function () {
         return msg;
     };
+    
+    SVGAnim.prototype.reset = function () {
+        reset();
+    };
 
     instance.MovieClip = MovieClip;
 
@@ -192,7 +196,7 @@ function SVGAnim(data, w, h, fps, params) {
     }
 
     function reset() {
-
+    	clearTimeout(cbk);
     }
 
     if (autoplay) {
