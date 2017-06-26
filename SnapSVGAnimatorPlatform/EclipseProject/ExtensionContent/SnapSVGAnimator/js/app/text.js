@@ -187,10 +187,8 @@ var Text = function (parentMC,resourceManager,charId,ObjectId,placeAfter,transfo
                 i += 1;
             }
 
-            if (i >= data.txt.length) {
-            	if (typeof(newIndex) == "undefined"){            	
-            		newIndex = chars.length
-            	}
+            if (i >= data.txt.length) {         	
+            	newIndex = chars.length
                 substr = chars.slice(0, newIndex);
                 spans.push(substr);
                 i = -1;
